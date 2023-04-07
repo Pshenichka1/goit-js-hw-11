@@ -1,6 +1,5 @@
-
 import hitsCards from './templates/card-photos.hbs'
-
+import './css/styles.css'
 // import axios from "axios";
 // import SimpleLightbox from "simplelightbox";
 // import "simplelightbox/dist/simple-lightbox.min.css";
@@ -9,31 +8,41 @@ import FetchPixabay from "./fetchPixabay";
 
 const searchForm = document.querySelector('#search-form');
 const btnSubmit = document.querySelector('button');
-const galleryPhotos = document.querySelector('.gallery');
+const galleryCotainer = document.querySelector('.gallery');
 const btnLoadMore = document.querySelector('.load-more');
+const galleryList = document.querySelector('.gallery-list')
 const newsApi = new FetchPixabay();
+btnLoadMore.classList.add('is-hidden')
+let isShown = 0;
+
 // document.body.innerHTML = templateFunction();
-searchForm.addEventListener('submit', handleCearch);
+searchForm.addEventListener('submit', handleSearch);
 btnLoadMore.addEventListener('click', handleLoadMore);
 
 
-function handleCearch(event) {
+function handleSearch(event) {
     event.preventDefault();
+    galleryCotainer
+    
+    
     clearHitsPhotos();
     newsApi.query = event.currentTarget.elements.searchQuery.value.trim();
     if (newsApi.query === '') {
+        btnLoadMore.classList.add('is-hidden');
     return  Notiflix.Notify.warning('Please enter a search parameter')  
     }
+    btnLoadMore.classList.remove('is-hidden')
     newsApi.resetPage();
-    newsApi.fetchArticls().then(appendHitsMarkup);
+    newsApi.fetchPixabayGallery().then(appendHitsMarkup);
 }
 
 function handleLoadMore() {
-    newsApi.fetchArticls().then(appendHitsMarkup);
+     
+    newsApi.fetchPixabayGallery().then(appendHitsMarkup);
 }
 function appendHitsMarkup(hits) {
-galleryPhotos.insertAdjacentHTML('beforeend', hitsCards(hits))
+galleryList.insertAdjacentHTML('beforeend', hitsCards(hits))
 }
 function clearHitsPhotos() {
-    galleryPhotos.innerHTML = '';
+    galleryList.innerHTML = '';
 }
