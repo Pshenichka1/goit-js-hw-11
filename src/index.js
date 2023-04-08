@@ -22,8 +22,7 @@ btnLoadMore.addEventListener('click', handleLoadMore);
 
 function handleSearch(event) {
     event.preventDefault();
-    galleryCotainer
-    
+        
     
     clearHitsPhotos();
     newsApi.query = event.currentTarget.elements.searchQuery.value.trim();
@@ -35,14 +34,17 @@ function handleSearch(event) {
     newsApi.resetPage();
     newsApi.fetchPixabayGallery().then(appendHitsMarkup);
 }
+// async function
 
 function handleLoadMore() {
      
     newsApi.fetchPixabayGallery().then(appendHitsMarkup);
 }
+
 function appendHitsMarkup(hits) {
 galleryList.insertAdjacentHTML('beforeend', hitsCards(hits))
 }
+
 function clearHitsPhotos() {
     galleryList.innerHTML = '';
 }
