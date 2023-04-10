@@ -17,10 +17,23 @@ let totalHits = 0;
 let page = 1;
 const per_page = 40;
 totalHits = page * per_page;
+// let lightbox = new SimpleLightbox('.gallery_link a', {
+//     captions: true,
+//     captionsData: 'alt',
+//     captionsDelay: 300,
+// });
 
 
 searchForm.addEventListener('submit', handleSearch);
 btnLoadMore.addEventListener('click', handleLoadMore);
+const { height: cardHeight } = document
+  .querySelector(".gallery")
+  .firstElementChild.getBoundingClientRect();
+
+window.scrollBy({
+  top: cardHeight * 2,
+  behavior: "smooth",
+});
 
 
 function handleSearch(event) {
@@ -52,9 +65,12 @@ function handleLoadMore() {
 }
 
 function appendHitsMarkup(hits) {
-galleryList.insertAdjacentHTML('beforeend', hitsCards(hits))
+    galleryList.insertAdjacentHTML('beforeend', hitsCards(hits));
+    lightbox.refresh();
 }
 
 function clearHitsPhotos() {
     galleryList.innerHTML = '';
 }
+
+
