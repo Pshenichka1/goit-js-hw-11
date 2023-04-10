@@ -14,8 +14,11 @@ const galleryList = document.querySelector('.gallery-list')
 const newsApi = new FetchPixabay();
 btnLoadMore.classList.add('is-hidden')
 let totalHits = 0;
+let page = 1;
+const per_page = 40;
+totalHits = page * per_page;
 
-// document.body.innerHTML = templateFunction();
+
 searchForm.addEventListener('submit', handleSearch);
 btnLoadMore.addEventListener('click', handleLoadMore);
 
@@ -27,8 +30,9 @@ function handleSearch(event) {
     newsApi.query = event.currentTarget.elements.searchQuery.value.trim();
     if (newsApi.query === '') {
         btnLoadMore.classList.add('is-hidden');
-    return  Notiflix.Notify.warning('Please enter a search parameter')  
-    }
+    Notiflix.Notify.warning('Please enter a search parameter')  
+    } 
+    Notiflix.Notify.info(`Hooray! We found ${totalHits} images.`)
     btnLoadMore.classList.remove('is-hidden')
     newsApi.resetPage();
     newsApi.fetchPixabayGallery().then(appendHitsMarkup);
@@ -36,7 +40,13 @@ function handleSearch(event) {
 }
 
 function handleLoadMore() {
-     
+    totalHits += page * per_page
+    if ((totalHits - page * per_page) > 0) {
+        Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+    } else if ((totalHits - page * per_page) <= 0) {
+        Notiflix.Notify.info("We're sorry, but you've reached the end of search results");
+        btnLoadMore.classList.add('is-hidden');
+    }
     newsApi.fetchPixabayGallery().then(appendHitsMarkup)
     
 }
