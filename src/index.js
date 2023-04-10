@@ -1,6 +1,6 @@
 import hitsCards from './templates/card-photos.hbs'
 import './css/styles.css'
-// import axios from "axios";
+
 // import SimpleLightbox from "simplelightbox";
 // import "simplelightbox/dist/simple-lightbox.min.css";
 import Notiflix from "notiflix";
@@ -13,7 +13,7 @@ const btnLoadMore = document.querySelector('.load-more');
 const galleryList = document.querySelector('.gallery-list')
 const newsApi = new FetchPixabay();
 btnLoadMore.classList.add('is-hidden')
-let isShown = 0;
+let totalHits = 0;
 
 // document.body.innerHTML = templateFunction();
 searchForm.addEventListener('submit', handleSearch);
@@ -23,7 +23,6 @@ btnLoadMore.addEventListener('click', handleLoadMore);
 function handleSearch(event) {
     event.preventDefault();
         
-    
     clearHitsPhotos();
     newsApi.query = event.currentTarget.elements.searchQuery.value.trim();
     if (newsApi.query === '') {
@@ -33,12 +32,13 @@ function handleSearch(event) {
     btnLoadMore.classList.remove('is-hidden')
     newsApi.resetPage();
     newsApi.fetchPixabayGallery().then(appendHitsMarkup);
+    
 }
-// async function
 
 function handleLoadMore() {
      
-    newsApi.fetchPixabayGallery().then(appendHitsMarkup);
+    newsApi.fetchPixabayGallery().then(appendHitsMarkup)
+    
 }
 
 function appendHitsMarkup(hits) {
