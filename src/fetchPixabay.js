@@ -16,11 +16,11 @@ export default class FetchPixabay {
            return hits
         })
     }
-    // async FetchPixabayGallery() {
+    // async fetchPixabayGallery() {
     //     const axiosOptions = {
     //         url: 'https://pixabay.com/api/',
     //         params: {
-    //             key: '35017734 - fed2e09b3d8a04f799b9cec3a',
+    //             key: '35017734-fed2e09b3d8a04f799b9cec3a',
     //             q: `${this.searchQuery}`,
     //             image_type: 'photo',
     //             orientation: 'horizontal',
@@ -31,9 +31,9 @@ export default class FetchPixabay {
     //     };
     //     try {
     //         const response = await axios(axiosOptions);
-    //         const data = response.data;
+    //         const {hits, totalHits} = response.data;
     //         this.incrementPage();
-    //         return data;
+    //         return hits;
     //     }
     //     catch (error) {
     //         console.error(error);
