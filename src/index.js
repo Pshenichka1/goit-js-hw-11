@@ -1,8 +1,8 @@
 import hitsCards from './templates/card-photos.hbs'
 import './css/styles.css'
 
-// import SimpleLightbox from "simplelightbox";
-// import "simplelightbox/dist/simple-lightbox.min.css";
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 import Notiflix from "notiflix";
 import FetchPixabay from "./fetchPixabay";
 
@@ -17,11 +17,11 @@ let totalHits = 0;
 let page = 1;
 const per_page = 40;
 totalHits = page * per_page;
-// let lightbox = new SimpleLightbox('.gallery_link a', {
-//     captions: true,
-//     captionsData: 'alt',
-//     captionsDelay: 300,
-// });
+let lightbox = new SimpleLightbox('.gallery_link a', {
+    captions: true,
+    captionsData: 'alt',
+    captionsDelay: 300,
+});
 
 
 searchForm.addEventListener('submit', handleSearch);
